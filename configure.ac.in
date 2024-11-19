@@ -90,6 +90,7 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0],[libxfce4util_minimum_versi
 XDT_CHECK_PACKAGE([LIBNOTIFY],[libnotify], [libnotify_minimum_version])
 XDT_CHECK_PACKAGE([UPOWER],[upower-glib], [upower_minimum_version])
 XDT_CHECK_PACKAGE([XRANDR],[xrandr], [xrandr_minimum_version])
+XDT_CHECK_PACKAGE([LIBKEYBINDER], [keybinder-3.0], [0.2.0])
 
 #=======================================================#
 #              Polkit?			                #

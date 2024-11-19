@@ -66,7 +66,9 @@ xfce4_power_manager_CFLAGS =                    \
 	$(XRANDR_CFLAGS)			\
 	$(DPMS_CFLAGS)           		\
 	$(PLATFORM_CPPFLAGS)			\
-	$(PLATFORM_CFLAGS)
+	$(PLATFORM_CFLAGS) \
+	$(LIBKEYBINDER_CFLAGS)
+
 
 xfce4_power_manager_LDFLAGS =			\
 	-no-undefined				\
@@ -85,7 +87,9 @@ xfce4_power_manager_LDADD =                     \
 	$(LIBNOTIFY_LIBS)                       \
 	$(UPOWER_LIBS)                          \
 	$(XRANDR_LIBS)				\
-	$(DPMS_LIBS)
+	$(DPMS_LIBS) \
+	$(LIBKEYBINDER_LIBS)
+
 
 if ENABLE_POLKIT
 
