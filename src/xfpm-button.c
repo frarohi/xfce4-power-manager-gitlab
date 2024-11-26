@@ -73,7 +73,7 @@ static struct
 {
   char            *keysymbol;
   XfpmButtonKey    key;
-} xfpm_symbol_map [NUMBER_OF_BUTTONS] = {
+} xfpm_symbol_map [] = {
   {"XF86MonBrightnessUp"  , BUTTON_MON_BRIGHTNESS_UP  },
   {"XF86MonBrightnessDown", BUTTON_MON_BRIGHTNESS_DOWN},
   {"XF86KbdBrightnessUp"  , BUTTON_KBD_BRIGHTNESS_UP  },
@@ -83,6 +83,7 @@ static struct
   {"XF86Suspend"          , BUTTON_HIBERNATE          },
   {"XF86Sleep"            , BUTTON_SLEEP              },
   {"XF86XK_Battery"       , BUTTON_BATTERY            },
+  {NULL, NULL}
 };
 
 #define DUPLICATE_SHUTDOWN_TIMEOUT 4.0f
@@ -97,7 +98,7 @@ void xfpm_key_handler (const char *keystring, void *data)
   XfpmButton *button = (XfpmButton *) data;
 
   XFPM_DEBUG ("Key symbol received: %s", keystring );
-  for (int idx=0; idx<NUMBER_OF_BUTTONS; idx++) {
+  for (int idx=0; xfpm_symbol_map[idx].keysymbol; idx++) {
     if ( strcmp( keystring, xfpm_symbol_map[idx].keysymbol ) == 0) {
       g_signal_emit (G_OBJECT (button), signals[BUTTON_PRESSED], 0, xfpm_symbol_map[idx].key );
       XFPM_DEBUG ("Key press signalled" );
@@ -122,9 +123,9 @@ static char *modifiers[] = {
    "<Ctrl><Shift><Alt>",
    "<Ctrl><Alt><Super>",
    "<Shift><Alt><Super>",
-   "<Ctrl><Shift><Alt><Super>"
+   "<Ctrl><Shift><Alt><Super>",
+   NULL
 };
-#define MAXMODIFIER 15
 
 static void
 xfpm_bind_keysym (XfpmButton *button,
@@ -134,7 +135,7 @@ xfpm_bind_keysym (XfpmButton *button,
   char buffer[100];
 
   if ((button->priv->mapped_buttons & key) == 0) {
-    for (int idx=0; idx<=MAXMODIFIER; idx++) {
+    for (int idx=0; modifiers[idx]; idx++) {
       sprintf( buffer, "%s%s", modifiers[idx], keysym);
       keybinder_bind (buffer, xfpm_key_handler, button);
     }
@@ -152,7 +153,7 @@ xfpm_unbind_keysym (XfpmButton *button,
   char buffer[100];
 
   if ((button->priv->mapped_buttons & key) != 0) {
-    for (int idx=0; idx<=MAXMODIFIER; idx++) {
+    for (int idx=0; modifiers[idx]; idx++) {
       sprintf( buffer, "%s%s", modifiers[idx], keysym);
       keybinder_unbind (buffer, xfpm_key_handler);
     }
