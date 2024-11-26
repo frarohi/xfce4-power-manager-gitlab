@@ -83,7 +83,7 @@ static struct
   {"XF86Suspend"          , BUTTON_HIBERNATE          },
   {"XF86Sleep"            , BUTTON_SLEEP              },
   {"XF86XK_Battery"       , BUTTON_BATTERY            },
-  {NULL, NULL}
+  {NULL, BUTTON_UNKNOWN}
 };
 
 #define DUPLICATE_SHUTDOWN_TIMEOUT 4.0f
